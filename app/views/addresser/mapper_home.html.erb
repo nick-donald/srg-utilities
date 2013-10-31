@@ -1,0 +1,20 @@
+<form id="file-submit" action="/mapper/map" method="post" enctype="multipart/form-data">
+	<input id="file-input" type="file" name="file" accept=".xlsx">
+	<input type="submit" value="Send">
+</form>
+
+<progress value="0" max="100">70 %</progress>
+
+<style>
+	progress {
+		background-color: blue;
+	}
+
+	progress::-webkit-progress-bar {  
+	    background-color: #000;
+	}  
+
+	progress::-webkit-progress-value {
+		background-color: red;
+	}
+</style>
