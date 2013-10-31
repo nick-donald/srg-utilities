@@ -41,15 +41,28 @@ var FileUploader = {
 
 		xhr.upload.addEventListener("progress", FileUploader.handleUploadProgress, false);
 
-		if (xhr.status === 200) {
-			var data = JSON.parse(xhr.responseText);
-		}
+		// if (xhr.status === 200) {
+		// 	var data = JSON.parse(xhr.responseText);
+		// }
+
+		// function xhrListener() {
+		// 	console.log(this.responseText);
+		// }
+
+		xhr.addEventListener("load", function() {
+			var data = JSON.parse(this.responseText);
+			FileUploader.displayOptionsSelector(data);
+		});
+
+		// xhr.onload = xhrListener;
 
 		xhr.open('post', '/mapper/map', true);
 
 		xhr.send(formData);
 
-		console.log(data);
+		
+
+		// console.log(data);
 
 		// var reader = new FileReader();
 		// var xhr = new XMLHttpRequest();
@@ -87,6 +100,18 @@ var FileUploader = {
 		var percent = e.loaded / e.total * 100;
 		console.log("Percent loaded: " + percent + "%");
 		progress[0].setAttribute("value", percent);
+	},
+
+	displayOptionsSelector: function(data) {
+		var form = document.createElement(form);
+		$form = $(form);
+		$('body').append($form);
+		var checkBox = '<input type="checkBox">';
+		for (var i = 0; i < data.length - 1; i++) {
+			$('form').append(checkBox);
+			var label = '<label>' + data[i] + '</label>';
+			$('form').append(label);
+		}
 	}
 }
 

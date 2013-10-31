@@ -190,7 +190,7 @@ module AddresserHelper
 			@output << book.cell(1, i)
 		end
 
-		puts @output
+		@output << filepath
 
 		return @output
 	end
