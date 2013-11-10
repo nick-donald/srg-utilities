@@ -1,7 +1,5 @@
-window.addEventListener("load", function() {
-
-	// var addresser_form = document.getElementById("retail-addresser");
-
+var SrgUtilities = SrgUtilities || {};
+(SrgUtilities.app = function() {
 
 	addresser_form = $("#retail-addresser");
 
@@ -65,21 +63,26 @@ window.addEventListener("load", function() {
 			return false;
 		});
 
-	}
+	};
 
-	var get_map = function(data) {
-		var city = data.request_params.City;
+	SrgUtilities.get_map = function(data) {
+		var city;
+		try {
+			city = data.request_params.City
+		} catch(err) {
+			city = data;
+		}
 
 		var locations = [], i, j, marker;
 
-		$body = $('body');
+		var $body = $('body');
 
 		
 		var map_params = {}
 		map_params.zoom = 8;
 
 		var colors = ["red", "blue", "green", "orange", "pink", "yellow", "purple"];
-		var latlng = get_geocode(city, function(center) {
+		var latlng = SrgUtilities.get_geocode(city, function(center) {
 			
 			map_params.center = center;
 			map_params.mapTypeId = google.maps.MapTypeId.ROADMAP;
@@ -118,7 +121,7 @@ window.addEventListener("load", function() {
 		alert("clicked");
 	}
 
-	var get_geocode = function(city, callback) {
+	SrgUtilities.get_geocode = function(city, callback) {
 		var geocoder = new google.maps.Geocoder();
 		var result = "";
 		geocoder.geocode( {'address': city }, function(results, status) {
@@ -171,13 +174,13 @@ window.addEventListener("load", function() {
 				display_retailer_info(data);
 				$("body").append(download_link);
 				$("body").append(more_details_link);
-				get_map(data);
+				SrgUtilities.get_map(data);
 				$("#more-details").click(function(){
 					get_more_data(data);
 				});
 				$("#download").click(function() {
 
-					var data = assemble_data();
+					var data = SrgUtilities.assemble_data();
 
 					get_file(data);
 				});
@@ -208,7 +211,7 @@ window.addEventListener("load", function() {
 		});
 	}
 
-	var assemble_data = function() {
+	SrgUtilities.assemble_data = function() {
 		var results = [];
 
 		var entries = $("#results-table tbody tr");
@@ -267,6 +270,10 @@ window.addEventListener("load", function() {
 	});
 
 });
+
+$(document).ready(function() {
+	new SrgUtilities.app();
+})
 
 var srg_googleMaps = {
 	initialize: function(mapOptions) {

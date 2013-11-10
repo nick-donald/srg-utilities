@@ -58,4 +58,27 @@ class AddresserController < ApplicationController
 		end
 	end
 
+	def confirm
+		data = params[:data]
+
+		# output = extract_spreadsheet(data)
+		output = confirm_names(data)
+
+		respond_to do |format|
+			format.json { render :json => output }
+		end
+	end
+
+	def extract
+
+		data = params[:data]
+
+		output = extract_spreadsheet(data)
+
+		respond_to do |format|
+			format.json { render :json => output }
+		end
+		
+	end
+
 end

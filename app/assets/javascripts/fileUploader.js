@@ -102,16 +102,89 @@ var FileUploader = {
 		progress[0].setAttribute("value", percent);
 	},
 
-	displayOptionsSelector: function(data) {
-		var form = document.createElement(form);
-		$form = $(form);
-		$('body').append($form);
-		var checkBox = '<input type="checkBox">';
-		for (var i = 0; i < data.length - 1; i++) {
-			$('form').append(checkBox);
-			var label = '<label>' + data[i] + '</label>';
-			$('form').append(label);
+	selectNames: function(data) {
+		var checkbox = '<form name="select-names">';
+
+		console.log(data.names);
+
+		for (var i = 0; i < data.names.length; i++) {
+			if (data.names[i]) {
+				checkbox += '<input type="checkbox" name="name" value="' + data.names[i] + '">' + data.names[i] + "</br>";
+			}
 		}
+
+		checkbox += '<button value="submit" type="submit"></button></form>';
+
+		$('body').append(checkbox);
+
+		$('form[name="select-names"]').on("submit", function(e) {
+			 FileUploader.submitNameChecker(e, data);	
+		});
+	},
+
+	submitNameChecker: function(e, data) {
+		e.preventDefault();
+
+		var names = [];
+
+		$('input[name="name"]').each(function() {
+			$this = $(this);
+			if ($this.is(":checked")) {
+				names.push($this.val());
+			}
+		});
+
+		data["names"] = names;
+
+		var posting = $.post("/mapper/extract", { data: data }, "json");
+
+		posting.done(FileUploader.buildTable);
+	},
+
+	buildTable: function(data) {
+		var tableHeaders = '<table id="results-table"><thead><tr><th>Name</th><th>Chain</th><th>Address</th></tr></thead><tbody></tbody></table>';
+		$('body').append(tableHeaders);
+
+		for (var i = 0; i < data.length; i++) {
+			if (data[i]) {
+				var rowStr = '<tr><td>' + data[i]['name'] + '</td><td>' + data[i]['chain'] + '</td><td>' + data[i]['addresses'] + '</td>';
+				$("#results-table").append(rowStr);
+			}
+		};
+	},
+
+	submitFormColumns: function(e) {
+		e.preventDefault();
+		var formData = {
+			column1: $('select[name="column1"]').val(),
+			column2: $('select[name="column2"]').val(),
+			filepath: $('input[name="filepath"]').val()
+		};
+
+		console.log(formData);
+
+		$.post("/mapper/confirm", { data: formData }, FileUploader.selectNames, "json");
+	},
+
+	displayOptionsSelector: function(data) {
+
+		var formTagOpen = '<form id="form-stores" name="columnHeaderCheck">';
+		var options = [];
+		for (var i = 0; i < data.length; i++) {
+			if (i !== data.length - 1) {
+				var option = '<option ' + 'value="' + data[i] + '">' + data[i] + '</option>';
+				options.push(option);
+			}
+		}
+		var selectOptions = options.join("");
+		var hidden = '<input type="hidden" name="filepath" value="' + data.pop() + '"></input>';
+		var button = '<button value="submit" type="submit"></button>';
+
+		var outputString = formTagOpen + '<select name="column1">' + selectOptions + '</select><select name="column2">' + selectOptions + '</select>' + hidden + button + '</form>';
+		$('body').append(outputString);
+
+		$('#form-stores').on('submit', FileUploader.submitFormColumns);
+		
 	}
 }
 

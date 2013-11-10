@@ -19,6 +19,10 @@ SrgUtilities::Application.routes.draw do
 
   post '/mapper/map' => 'addresser#get_map', defaults: { format: 'json' }
 
+  post '/mapper/confirm' => 'addresser#confirm', defaults: { format: 'json' }
+
+  post '/mapper/extract' => 'addresser#extract', defaults: { format: 'json' }
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

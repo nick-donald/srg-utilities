@@ -194,4 +194,82 @@ module AddresserHelper
 
 		return @output
 	end
+
+	def confirm_names(data)
+		filepath = data['filepath']
+		names_col = data['column1']
+
+		re = /(?:\.)(\w+)$/i
+		fExtension = re.match(filepath)[1]
+
+		if fExtension == 'xls'
+			book = Roo::Excel.new(filepath)
+		elsif fExtension == 'xlsx'
+			book = Roo::Excelx.new(filepath)
+		end
+
+		book.default_sheet = book.sheets.first
+		start = book.first_row + 1
+
+		
+
+		for i in book.first_column..book.last_column
+			if names_col == book.cell(1, i)
+				names_col_num = i
+			end
+		end
+
+		names = Array.new
+
+		first = book.first_row + 1
+
+		for j in first..book.last_row
+			names[j] = book.cell(j, names_col_num)
+		end
+
+
+		data['names'] = names.uniq
+		return data
+
+	end
+
+	def extract_spreadsheet(data)
+
+		filepath = data['filepath']
+
+		regexs = Array.new
+
+		data['names'].each do |name|
+			str = sprintf(".*%s.*", name)
+			regexs << Regexp.new(str, true)
+		end
+
+		re = /(?:\.)(\w+)$/i
+		fExtension = re.match(filepath)[1]
+
+		output = Array.new
+
+		if fExtension == 'xls'
+			book = Roo::Excel.new(filepath)
+		elsif fExtension == 'xlsx'
+			book = Roo::Excelx.new(filepath)
+		end
+
+		book.default_sheet = book.sheets.first
+
+		start = book.first_row + 1
+
+		for i in start..book.last_row
+			output[i] = Hash.new
+			output[i]["name"] = book.cell(i, 1)
+			for j in 0..data['names'].count
+				if regexs[j] === book.cell(i, 1)
+					output[i]["chain"] = data['names'][j]
+				end
+			end
+			output[i]['addresses'] = book.cell(i, 2)
+		end
+
+		return output
+	end
 end
