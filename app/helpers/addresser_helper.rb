@@ -235,6 +235,10 @@ module AddresserHelper
 
 	def extract_spreadsheet(data)
 
+		puts data
+
+		puts "_________________________________"
+
 		filepath = data['filepath']
 
 		regexs = Array.new
@@ -257,19 +261,36 @@ module AddresserHelper
 
 		book.default_sheet = book.sheets.first
 
+		for i in 1..book.last_column
+			case book.cell(1, i)
+			when data['column1']
+				name_column = i
+			when data['column2']
+				addr_column = i
+			end
+		end
+
 		start = book.first_row + 1
 
 		for i in start..book.last_row
 			output[i] = Hash.new
-			output[i]["name"] = book.cell(i, 1)
+			output[i]["name"] = book.cell(i, name_column)
 			for j in 0..data['names'].count
 				if regexs[j] === book.cell(i, 1)
 					output[i]["chain"] = data['names'][j]
 				end
 			end
-			output[i]['addresses'] = book.cell(i, 2)
+			output[i]['addresses'] = book.cell(i, addr_column)
 		end
 
 		return output
+	end
+
+	def hi(name)
+		"hi #{name}"
+	end
+
+	def test
+		return Array.new(5)
 	end
 end
