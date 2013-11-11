@@ -235,32 +235,28 @@ module AddresserHelper
 
 	def extract_spreadsheet(data)
 
-		puts data
-
-		puts "_________________________________"
-
 		filepath = data['filepath']
 
+		# Create array of regular expressions to get base retailer name
+		# in cases where other names are given by Google
 		regexs = Array.new
-
 		data['names'].each do |name|
 			str = sprintf(".*%s.*", name)
 			regexs << Regexp.new(str, true)
 		end
 
+		# Determine is file has '.xls' or '.xlsx' extension, then access with Roo
 		re = /(?:\.)(\w+)$/i
-		fExtension = re.match(filepath)[1]
-
-		output = Array.new
-
+		fExtension = re.match(filepath)[1}
 		if fExtension == 'xls'
 			book = Roo::Excel.new(filepath)
 		elsif fExtension == 'xlsx'
 			book = Roo::Excelx.new(filepath)
 		end
 
+		# Loop through header row to find 'names' and 'addresses' columns
+		# from user input
 		book.default_sheet = book.sheets.first
-
 		for i in 1..book.last_column
 			case book.cell(1, i)
 			when data['column1']
@@ -270,8 +266,10 @@ module AddresserHelper
 			end
 		end
 
+		# Iterate through worksheet, create a new hash for each entry
+		# and push it into the 'output' array, return 'output' and we're done
+		output = Array.new
 		start = book.first_row + 1
-
 		for i in start..book.last_row
 			output[i] = Hash.new
 			output[i]["name"] = book.cell(i, name_column)
@@ -282,7 +280,6 @@ module AddresserHelper
 			end
 			output[i]['addresses'] = book.cell(i, addr_column)
 		end
-
 		return output
 	end
 
