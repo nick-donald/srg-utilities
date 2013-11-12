@@ -18,3 +18,4 @@ Utilities include:
     - Find weekly ads for stores in specific area
     - Print ad pages to pdf, enable for download
   - User login, admin control, etc
+  - Eventually refactor front-end with backbone
