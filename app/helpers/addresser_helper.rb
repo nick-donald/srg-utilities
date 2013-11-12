@@ -6,6 +6,7 @@ module AddresserHelper
 	require 'simple_xlsx'
 	require 'spreadsheet'
 	require 'roo'
+	require File.join(Rails.root, "lib/api_keys.rb")
 
 	def addresser(query, inputCity, radius)
 
@@ -31,10 +32,6 @@ module AddresserHelper
 
 		s = Geocoder.search(inputCity)
 
-		api_key = 'AIzaSyD9nMao2MhG-koTmFrm0oeGMe3MT4kFy5k'
-
-		# query_formatted = "Target"
-
 		results_group = []
 
 		count = 0;
@@ -45,7 +42,7 @@ module AddresserHelper
 
 			puts "Searching #{q} in #{inputCity}..."
 			
-			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=AIzaSyCi1M9jpPjCTi6HlZBEC4gza5F7SR7lwIo"
+			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=#{ApiKeys.google_places_key}"
 
 			puts uri
 
@@ -116,7 +113,7 @@ module AddresserHelper
 				num_j = j.to_s
 				ref = results[num][num_j]["reference"]
 
-				uri = "https://maps.googleapis.com/maps/api/place/details/json?reference=#{ref}&sensor=false&key=AIzaSyCi1M9jpPjCTi6HlZBEC4gza5F7SR7lwIo"
+				uri = "https://maps.googleapis.com/maps/api/place/details/json?reference=#{ref}&sensor=false&key=#{ApiKeys.google_places_key}"
 
 				obj = open(uri).read
 
@@ -238,7 +235,7 @@ module AddresserHelper
 		filepath = data['filepath']
 
 		# Create array of regular expressions to get base retailer name
-		# in cases where other names are given by Google
+		# in cases where other names are given by Google Places API
 		regexs = Array.new
 		data['names'].each do |name|
 			str = sprintf(".*%s.*", name)
@@ -247,7 +244,7 @@ module AddresserHelper
 
 		# Determine is file has '.xls' or '.xlsx' extension, then access with Roo
 		re = /(?:\.)(\w+)$/i
-		fExtension = re.match(filepath)[1}
+		fExtension = re.match(filepath)[1]
 		if fExtension == 'xls'
 			book = Roo::Excel.new(filepath)
 		elsif fExtension == 'xlsx'
@@ -281,13 +278,5 @@ module AddresserHelper
 			output[i]['addresses'] = book.cell(i, addr_column)
 		end
 		return output
-	end
-
-	def hi(name)
-		"hi #{name}"
-	end
-
-	def test
-		return Array.new(5)
 	end
 end
