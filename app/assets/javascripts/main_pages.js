@@ -326,7 +326,7 @@ var getStaticMap = function(data) {
 	console.log(formattedAddr);
 	
 
-	var staticMapSRC = "http://maps.googleapis.com/maps/api/staticmap?&size=640x540" + formattedAddr + "&sensor=false";
+	var staticMapSRC = "http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=640x540" + formattedAddr;
 	var staticMap = '<img src="' + staticMapSRC + '">';
 
 	$('body').append(staticMap);

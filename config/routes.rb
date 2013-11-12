@@ -23,6 +23,8 @@ SrgUtilities::Application.routes.draw do
 
   post '/mapper/extract' => 'addresser#extract', defaults: { format: 'json' }
 
+  post '/mapper/more' => 'addresser#more_info_from_uploaded', defaults: { format: 'json' }
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

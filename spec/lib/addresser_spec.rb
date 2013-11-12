@@ -6,7 +6,7 @@ describe ApiKeys do
     end
 end
 
-describe AddresserHelper do
+describe Addresser do
     before(:each) do
         @dummy_class = Class.new { extend Addresser }
     end
@@ -33,5 +33,8 @@ describe AddresserHelper do
                 specify { info['status'].should eq('INVALID_REQUEST') }
             end
         end
+    end
+
+    describe "#get_info_from_upload" do
     end
 end

@@ -1,4 +1,6 @@
+# These methods may need to be split into different modules
 module Addresser
+	# Gems
 	require 'rubygems'
 	require 'open-uri' # To be refactored with Net::HTTP
 	require 'geocoder'
@@ -6,56 +8,50 @@ module Addresser
 	require 'simple_xlsx'
 	require 'spreadsheet'
 	require 'roo'
-	require File.join(Rails.root, "lib/api_keys.rb")
+	# Api keys module (hidden from public repo)
+	include ApiKeys
 
 	def addresser(query, inputCity, radius)
 
-		info = Hash.new
-
+		# Split the inputed queries into array
 		query_formatted = query.split(/,{1}\s*/)
 
+		# Store array, city, and radius in info hash,
+		# hold on to retailer and city for file name
+		info = Hash.new
 		info["Retailers"] = query_formatted
-
-		$retailers_string = query_formatted.join("_")
-
+		@@retailers_string = query_formatted.join("_")
 		info["City"] = inputCity
-
-		$city = inputCity
-
+		@@city = inputCity
 		info["Radius"] = radius
+		radius = radius.to_i * 1609 # Convert miles to meters
+		s = Geocoder.search(inputCity) # Geocode city
 
-		radius = radius.to_i * 1609
-
-		s = Geocoder.search(inputCity)
-
-		results_group = []
+		# Create array to store location hash, iterate through each query
 		results_output = Array.new
-
-		count = 0;
-
+		count = 0
 		query_formatted.each do |q|
 
-			q.gsub!(/\s/, "%22")
-
-			puts "Searching #{q} in #{inputCity}..."
-			
+			# UrlEncode city and get JSON from Google, thanks Google.
+			# Probably should be refactored using just Net::HTTP (open-uri is bad I hear?)
+			q.gsub!(/\s/, "%20")
 			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=#{ApiKeys.google_places_key}"
-
-			puts uri
-
 			obj = open(uri).read
-
 			object = JSON.parse(obj)
-
 			results = object["results"]
 
-			break if object['status'] == 'INVALID_REQUEST'
+			break if object['status'] == 'INVALID_REQUEST' # Break if something bad was send (i.e. radius != integer)
 
+			# Otherwise status is OK, proceed
 			info["status"] = "OK"
 
 			results_push = Array.new
 			results_uniq = Hash.new
 
+			# For each result in the Google output, 
+			# add it to our results array 'results_push'
+			# if it has the type 'store' and its address is unique
+			# (checked by hash 'results_uniq')
 			results.each do |result|
 				vicinity = result["vicinity"]
 				if result["types"].include? "store"
@@ -66,10 +62,11 @@ module Addresser
 				end
 			end
 
+			# Add the results for this query to our global return Array
+			# and increment count, then sleep for a bit so we don't make
+			# Google mad
 			results_output[count] = results_push
-
 			count += 1
-
 			sleep 0.5
 		end
 
@@ -122,7 +119,7 @@ module Addresser
 
 		length = data["results"].count
 
-		@filepath = "#{Rails.root}/public/uploads/#{$retailers_string}_#{$city}_spreadsheet.xlsx"
+		@filepath = "#{Rails.root}/public/uploads/#{@@retailers_string}_#{@@city}_spreadsheet.xlsx"
 
 		SimpleXlsx::Serializer.new(@filepath) do |doc|
 			doc.add_sheet("Results") do |sheet|
@@ -253,5 +250,9 @@ module Addresser
 			output[i]['addresses'] = book.cell(i, addr_column)
 		end
 		return output
+	end
+
+	def get_info_from_upload(data)
+		
 	end
 end

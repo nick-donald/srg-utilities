@@ -19,7 +19,7 @@ class AddresserController < ApplicationController
 		assemble_excel(data)
 		response = { filepath: @filepath }
 		respond_to do |format|
-			format.json { render :json => response}
+			format.json { render :json => response }
 		end
 	end
 
@@ -75,7 +75,13 @@ class AddresserController < ApplicationController
 		respond_to do |format|
 			format.json { render :json => output }
 		end
-		
+	end
+
+	def more_info_from_uploaded
+		output = get_info_from_upload(params[:data])
+		respond_to do |format|
+			format.json { render :json => "output" }
+		end
 	end
 
 end

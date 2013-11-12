@@ -139,6 +139,12 @@ var FileUploader = {
 		var posting = $.post("/mapper/extract", { data: data }, "json");
 
 		posting.done(FileUploader.buildTable);
+
+		var detailBtn = '<button value="More Details" id="more-details-mapper">More Details</button>'
+
+		$("body").append(detailBtn);
+		$("button#more-details-mapper").click(FileUploader.getMoreInfo);
+
 	},
 
 	buildTable: function(data) {
@@ -185,6 +191,24 @@ var FileUploader = {
 
 		$('#form-stores').on('submit', FileUploader.submitFormColumns);
 		
+	},
+
+	getMoreInfo: function() {
+		var data = FileUploader.buildFromTable();
+
+		$.post("/mapper/more", { data: data }, "json");
+	},
+
+	buildFromTable: function() {
+		var addresses = [];
+		$("tr").each(function() {
+			var info = {
+				name: $(this).find("td").eq(1).text(),
+				address: $(this).find("td:last-child").text()
+			}
+			addresses.push(info);
+		});
+		return addresses
 	}
 }
 
