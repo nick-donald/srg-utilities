@@ -15,8 +15,26 @@ describe AddresserHelper do
     end
 
     describe "#addresser" do
-        it "should return array" do
-            @dummy_class.addresser("target", "chicago", 10).class.should == Array
+        subject { @dummy_class.addresser("target", "chicago", 10) }
+
+        context 'with good input' do
+            context 'should return array' do
+                its(:class) { should eq(Array) }
+            end
+            context 'should return status success' do
+                sleep 0.5
+                let(:info) { @dummy_class.addresser("target", "chicago", 10).first }
+
+                specify { info['status'].should eq('OK') }
+            end
+        end
+
+        context 'with bad input' do
+            context 'should return status BAD REQUEST' do
+                let(:info) { @dummy_class.addresser("target", "chicago", "b") }
+
+                specify { info['status'].should eq('INVALID_REQUEST') }
+            end
         end
     end
 end

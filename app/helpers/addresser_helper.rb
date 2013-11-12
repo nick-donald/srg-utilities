@@ -1,6 +1,6 @@
 module AddresserHelper
 	require 'rubygems'
-	require 'open-uri'
+	require 'open-uri' # To be refactored with Net::HTTP
 	require 'geocoder'
 	require 'json'
 	require 'simple_xlsx'
@@ -12,27 +12,26 @@ module AddresserHelper
 
 		time = Time.new
 
-		@info = {}
-
-		@results_output = []
+		info = Hash.new
 
 		query_formatted = query.split(/,{1}\s*/)
 
-		@info["Retailers"] = query_formatted
+		info["Retailers"] = query_formatted
 
 		$retailers_string = query_formatted.join("_")
 
-		@info["City"] = inputCity
+		info["City"] = inputCity
 
 		$city = inputCity
 
-		@info["Radius"] = radius
+		info["Radius"] = radius
 
 		radius = radius.to_i * 1609
 
 		s = Geocoder.search(inputCity)
 
 		results_group = []
+		results_output = Array.new
 
 		count = 0;
 
@@ -44,59 +43,42 @@ module AddresserHelper
 			
 			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=#{ApiKeys.google_places_key}"
 
-			puts uri
-
 			obj = open(uri).read
 
 			object = JSON.parse(obj)
 
 			results = object["results"]
 
-			results_push = []
-			results_uniq = {}
+			break if object['status'] == 'INVALID_REQUEST'
+
+			info["status"] = "OK"
+
+			results_push = Array.new
+			results_uniq = Hash.new
 
 			results.each do |result|
 				vicinity = result["vicinity"]
 				if result["types"].include? "store"
 					if !results_uniq[vicinity]
 						results_uniq[vicinity] = 1
-
 						results_push << result
 					end
 				end
 			end
 
-			@results_output[count] = results_push
+			results_output[count] = results_push
 
 			count += 1
 
 			sleep 0.5
-
 		end
 
-		# results_group.empty? puts "No results"
-
-		# SimpleXlsx::Serializer.new("#{Rails.root}/public/uploads/test-#{time}.xlsx") do |doc|
-		# 	doc.add_sheet("Results") do |sheet|
-		# 		sheet.add_row(%w{Store Vicinity})
-
-		# 		result_uniq = {}
-
-		# 		results_group.each do |store|
-		# 			store.each do |r|
-		# 				if r["types"].include? "store"
-		# 					if !result_uniq[r["vicinity"]]
-		# 						result_uniq[r["vicinity"]] = 1
-		# 						sheet.add_row([r["name"], r["vicinity"]])
-		# 					end
-		# 				end
-		# 			end
-		# 		end
-		# 	end
-		# end
-		@info["status"] = "success"
-
-		return @info, @results_output
+		if results_output.count > 0
+			return info, results_output
+		else
+			info['status'] = 'INVALID_REQUEST'
+			return info
+		end
 	end
 
 	def detail_finder(data)
@@ -160,11 +142,6 @@ module AddresserHelper
 
 		
 		return @filepath
-	end
-
-	def maps
-		puts "hi"
-		
 	end
 
 	def mapOutput(filepath)
