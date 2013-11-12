@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-class DummyClass
-end
-
 describe ApiKeys do
     before(:each) do
         @dummy_class = Class.new { extend ApiKeys }
@@ -11,7 +8,7 @@ end
 
 describe AddresserHelper do
     before(:each) do
-        @dummy_class = Class.new { extend AddresserHelper }
+        @dummy_class = Class.new { extend Addresser }
     end
 
     describe "#addresser" do

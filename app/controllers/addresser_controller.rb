@@ -1,5 +1,5 @@
 class AddresserController < ApplicationController
-	include AddresserHelper
+	include Addresser
 	skip_before_filter :verify_authenticity_token, only: :get_map
 
 	def new
@@ -7,13 +7,10 @@ class AddresserController < ApplicationController
 	end
 
 	def exec
-		@retailers = params[:retailers]
-		@city = params[:city]
-		@radius = params[:radius]
-		addresser(@retailers, @city, @radius)
-		@response = { request_params: @info, response: @results_output }
+		output = addresser(params[:retailers], params[:city], params[:radius])
+		response = { request_params: output[0], response: output[1] }
 		respond_to do |format|
-			format.json { render :json => @response }
+			format.json { render :json => response }
 		end
 	end
 
