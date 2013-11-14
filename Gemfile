@@ -32,6 +32,7 @@ gem 'json'
 gem 'simple_xlsx_writer'
 gem 'spreadsheet'
 gem 'roo'
+gem 'rails-backbone'
 
 gem 'rspec'
 gem 'rspec-rails'

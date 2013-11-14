@@ -84,4 +84,15 @@ class AddresserController < ApplicationController
 		end
 	end
 
+	def test
+		results = []
+		result = {name: 'Target', number: '555-555-5555'}
+		results.push(result)
+		result2 = {name: 'Walmart', number: '444-444-4444'}
+		results.push(result2)
+		respond_to do |format|
+			format.json { render :json => results }
+		end
+	end
+
 end

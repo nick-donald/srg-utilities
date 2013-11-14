@@ -5,7 +5,9 @@ SrgUtilities::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  root "main_pages#home"
+  root "main_pages#index"
+
+  get '/oldroot' => 'main_pages#home'
 
   get '/addresser' => 'addresser#exec', defaults: { format: 'json' }
 
@@ -24,6 +26,8 @@ SrgUtilities::Application.routes.draw do
   post '/mapper/extract' => 'addresser#extract', defaults: { format: 'json' }
 
   post '/mapper/more' => 'addresser#more_info_from_uploaded', defaults: { format: 'json' }
+
+  get '/test' => 'addresser#test', defaults: { format: 'json' }
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

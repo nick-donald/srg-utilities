@@ -1,0 +1,16 @@
+<h1>Listing query_results</h1>
+
+<table id="results-table" border="1" style="border-collapse:collapse; float:left;">
+	<thead style="border-bottom:solid 3px;">
+		<tr>
+			<th>Name</th>
+			<th>Chain</th>
+			<th>Address</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for (i = 0; i < results.models.length; i++) { %>
+		<tr><td><%= results.models[i].get('name') %></td><td><td><%= results.models[i].get('number') %></td></tr>
+		<% } %>
+	</tbody>
+</table>
