@@ -9,6 +9,7 @@ SrgUtilities.Views.QueryResults.ResultsTable = Backbone.View.extend({
 
 	render: function() {
 		this.$el.html(this.template({ results: this.collection }));
+		console.log(this.collection.models);
 		return this;
 	}
 });

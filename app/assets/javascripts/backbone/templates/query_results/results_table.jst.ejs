@@ -7,9 +7,8 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% for (i = 0; i < results.models; i++) { %>
-			<%= console.log(i) %>
+		<% for (i = 0; i < results.models.length; i ++) { %>
+			<tr><td><%= results.models[i].get('name') %></td><td><%= results.models[i].get('store_name') %></td><td><%= results.models[i].get('vicinity') %></td></tr>
 		<% } %>
-
 	</tbody>
 </table>

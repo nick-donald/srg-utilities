@@ -8,9 +8,10 @@ class AddresserController < ApplicationController
 
 	def exec
 		output = addresser(params[:retailers], params[:city], params[:radius])
-		response = { request_params: output[0], response: output[1] }
+		# response = { request_params: output[0], response: output[1] } -------> Commenting out for Backbone testing
+		# See Addresser Module
 		respond_to do |format|
-			format.json { render :json => response }
+			format.json { render :json => output }
 		end
 	end
 

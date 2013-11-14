@@ -11,9 +11,16 @@ SrgUtilities.Views.QueryResults.QueryNew = Backbone.View.extend({
   	e.preventDefault();
   	
   	this.collection = new SrgUtilities.Collections.QueryResults();
-	this.collection.fetch();
+  	var data = {
+  		retailers: $('#stores').val(),
+  		city: $('#city').val(),
+  		radius: $('#radius').val()
+  	};
+
+	  this.collection.fetch({ data: data });
   	var view = new SrgUtilities.Views.QueryResults.ResultsTable({ collection: this.collection });
-  	$('body').append(view.render().el);
+  	$('#target').html(view.render().el);
+    $('h1').text('Query Results');
   },
 
   render: function() {

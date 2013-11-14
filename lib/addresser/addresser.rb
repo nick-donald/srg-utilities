@@ -30,6 +30,8 @@ module Addresser
 		# Create array to store location hash, iterate through each query
 		results_output = Array.new
 		count = 0
+		
+		results_push = Array.new
 		query_formatted.each do |q|
 
 			# UrlEncode city and get JSON from Google, thanks Google.
@@ -45,7 +47,7 @@ module Addresser
 			# Otherwise status is OK, proceed
 			info["status"] = "OK"
 
-			results_push = Array.new
+			
 			results_uniq = Hash.new
 
 			# For each result in the Google output, 
@@ -57,6 +59,7 @@ module Addresser
 				if result["types"].include? "store"
 					if !results_uniq[vicinity]
 						results_uniq[vicinity] = 1
+						result['store_name'] = q
 						results_push << result
 					end
 				end
@@ -64,14 +67,17 @@ module Addresser
 
 			# Add the results for this query to our global return Array
 			# and increment count, then sleep for a bit so we don't make
-			# Google mad
-			results_output[count] = results_push
+			# Google mad.
+			# results_output[count] = results_push
 			count += 1
 			sleep 0.5
 		end
 
-		if results_output.count > 0
-			return info, results_output
+		# if results_output.count > 0
+		if results_push.count > 0
+			# return info, results_output ---> Commenting this out while I test this for Backbone
+			# It will return an array of objects, to be used as a collection on the front end
+			return results_push
 		else
 			info['status'] = 'INVALID_REQUEST'
 			return info
@@ -253,6 +259,10 @@ module Addresser
 	end
 
 	def get_info_from_upload(data)
+		
+	end
+
+	def addresser_test
 		
 	end
 end

@@ -6,8 +6,8 @@ SrgUtilities.Routers.QueryResults = Backbone.Router.extend({
 	},
 
 	initialize: function() {
-		this.collection = new SrgUtilities.Collections.QueryResults();
-  		this.collection.fetch();
+		// this.collection = new SrgUtilities.Collections.QueryResults();
+  		// this.collection.fetch();
 	},
 
 	index: function() {

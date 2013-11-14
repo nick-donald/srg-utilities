@@ -1,3 +1,3 @@
 SrgUtilities.Collections.QueryResults = Backbone.Collection.extend({
-	url: '/test'
+	url: '/addresser'
 });
