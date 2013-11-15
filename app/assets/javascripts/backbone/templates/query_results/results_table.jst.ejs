@@ -8,7 +8,11 @@
 	</thead>
 	<tbody>
 		<% for (i = 0; i < results.models.length; i ++) { %>
-			<tr><td><%= results.models[i].get('name') %></td><td><%= results.models[i].get('store_name') %></td><td><%= results.models[i].get('vicinity') %></td></tr>
+			<tr><td><%= results.models[i].get('name') %></td><td><%= results.models[i].get('store_name') %></td><td><%= results.models[i].get('vicinity') %></td><td><a href="#" class="remove" data-entry="<%= i %>">Remove</a></td></tr>
 		<% } %>
 	</tbody>
 </table>
+
+<% if (results.models.length) { %>
+	<button name="get-map" value="get-map" id="get-map">Get Map</button>
+<% } %>

@@ -7,11 +7,34 @@ class AddresserController < ApplicationController
 	end
 
 	def exec
+		@query = Query.create do |q|
+			q.query = params[:retailers]
+			q.center = params[:city]
+			q.radius = params[:radius]
+		end
+		inserts = []
 		output = addresser(params[:retailers], params[:city], params[:radius])
-		# response = { request_params: output[0], response: output[1] } -------> Commenting out for Backbone testing
-		# See Addresser Module
+		output.each do |result|
+			inserts.push "(#{@query.id},'#{result['name']}','#{result['vicinity']}')"
+		end
+		sql = "INSERT INTO query_results (query_id, name, address) VALUES #{inserts.join(',')}"
+		ActiveRecord::Base.connection.execute(sql)
+		ActiveRecord::Base.connection.close
+
+		result_ids = QueryResult.where('query_id = ?', "#{@query.id}")
+		for i in 0...output.count
+			output[i]['id'] = result_ids[i].id
+		end
 		respond_to do |format|
 			format.json { render :json => output }
+		end
+
+
+	end
+
+	def insert_output(&block)
+		Thread.new do
+			yield
 		end
 	end
 

@@ -7,6 +7,8 @@ SrgUtilities::Application.routes.draw do
 
   root "main_pages#index"
 
+  get '/query-results', to: redirect("/")
+
   get '/oldroot' => 'main_pages#home'
 
   get '/addresser' => 'addresser#exec', defaults: { format: 'json' }
@@ -28,6 +30,8 @@ SrgUtilities::Application.routes.draw do
   post '/mapper/more' => 'addresser#more_info_from_uploaded', defaults: { format: 'json' }
 
   get '/test' => 'addresser#test', defaults: { format: 'json' }
+
+  delete '/addresser' => 'query_results#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

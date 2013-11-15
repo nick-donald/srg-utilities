@@ -20,6 +20,7 @@ SrgUtilities.Views.QueryResults.QueryNew = Backbone.View.extend({
 	  this.collection.fetch({ data: data });
   	var view = new SrgUtilities.Views.QueryResults.ResultsTable({ collection: this.collection });
   	$('#target').html(view.render().el);
+    Backbone.history.navigate("/query-results");
     $('h1').text('Query Results');
   },
 
