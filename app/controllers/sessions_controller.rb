@@ -1,16 +1,14 @@
-class UsersController < ApplicationController
-
-    def create
+class SessionsController < ApplicationController
+    def new
     end
 
-    def new
-        
+    def create
+        @user = User.find_by_email(params[:email])
+        render nothing: true
     end
 
     def destroy
-        
     end
-
 
     private
         def user_params

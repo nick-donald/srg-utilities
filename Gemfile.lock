@@ -40,6 +40,8 @@ GEM
     ejs (1.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.3.0)
+      activesupport (>= 3.0.0)
     fast_xs (0.8.0)
     geocoder (1.1.8)
     hike (1.2.3)
@@ -146,6 +148,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 4.0.0)
+  factory_girl
   geocoder
   jbuilder (~> 1.2)
   jquery-rails

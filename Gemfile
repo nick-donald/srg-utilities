@@ -38,6 +38,7 @@ gem 'rails-backbone'
 group :test do
     gem 'rspec'
     gem 'rspec-rails'
+    gem 'factory_girl'
 end
 
 group :doc do
