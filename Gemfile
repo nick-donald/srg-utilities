@@ -34,8 +34,11 @@ gem 'spreadsheet'
 gem 'roo'
 gem 'rails-backbone'
 
-gem 'rspec'
-gem 'rspec-rails'
+
+group :test do
+    gem 'rspec'
+    gem 'rspec-rails'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -43,7 +46,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
