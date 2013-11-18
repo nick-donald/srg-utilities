@@ -1,8 +1,9 @@
 SrgUtilities.Routers.QueryResults = Backbone.Router.extend({
 
 	routes: {
-		'': 'newQuery',
-		'show': 'show'
+		'': 'home',
+		'show': 'show',
+		'new-query': 'newQuery'
 	},
 
 	initialize: function() {
@@ -23,5 +24,9 @@ SrgUtilities.Routers.QueryResults = Backbone.Router.extend({
 	newQuery: function() {
 		var view = new SrgUtilities.Views.QueryResults.QueryNew();
 		$('body').html(view.render().el);
+	},
+
+	home: function() {
+		
 	}
 });
