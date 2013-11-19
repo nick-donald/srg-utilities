@@ -1,3 +1,4 @@
+// To Do: Add close() to view prototype for memory cleanup
 window.SrgUtilities = {
   Models: {},
   Collections: {},

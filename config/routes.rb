@@ -37,6 +37,10 @@ SrgUtilities::Application.routes.draw do
 
   get '/authenticate' => 'sessions#authenticate', defaults: { format: 'json' }
 
+  get '/query/getexcel' => 'query_results#get_excel', defaults: { format: 'json' }
+
+  get '/query/downloadexcel' => 'query_results#download_excel'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

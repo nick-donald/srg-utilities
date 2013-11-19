@@ -119,30 +119,59 @@ module Addresser
 		return @return_group
 	end
 
+	# def assemble_excel(data)
+
+	# 	headers = data["columns"]
+
+	# 	length = data["results"].count
+
+	# 	@filepath = "#{Rails.root}/public/uploads/#{@@retailers_string}_#{@@city}_spreadsheet.xlsx"
+
+	# 	SimpleXlsx::Serializer.new(@filepath) do |doc|
+	# 		doc.add_sheet("Results") do |sheet|
+	# 			sheet.add_row(headers)
+
+	# 			data["results"].each do |result|
+	# 				row_data = []
+	# 				result[1].each do |k,v|
+	# 					row_data << v
+	# 				end
+	# 				sheet.add_row(row_data)
+	# 			end
+	# 		end
+	# 	end
+
+		
+	# 	return @filepath
+	# end
+
 	def assemble_excel(data)
+		headers = Array.new
+		data[0].attributes.each do |k, v|
+			if v != nil && k != 'id' && k != 'query_id'
+				headers << k
+			end
+		end
+		query = Query.find_by_id(data[0].query_id)
+		query_formatted = query.query.gsub!(/\,+\s*/, '_')
 
-		headers = data["columns"]
+		filepath = "#{Rails.root}/public/uploads/#{query.query}_#{query.center}_spreadsheet.xlsx"
 
-		length = data["results"].count
+		query.update(filepath: filepath)
 
-		@filepath = "#{Rails.root}/public/uploads/#{@@retailers_string}_#{@@city}_spreadsheet.xlsx"
-
-		SimpleXlsx::Serializer.new(@filepath) do |doc|
+		SimpleXlsx::Serializer.new(filepath) do |doc|
 			doc.add_sheet("Results") do |sheet|
 				sheet.add_row(headers)
 
-				data["results"].each do |result|
+				data.each do |result|
 					row_data = []
-					result[1].each do |k,v|
-						row_data << v
+					for i in 0...headers.count
+						row_data << result[headers[i]]
 					end
 					sheet.add_row(row_data)
 				end
 			end
 		end
-
-		
-		return @filepath
 	end
 
 	def mapOutput(filepath)

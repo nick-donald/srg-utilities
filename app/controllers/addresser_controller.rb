@@ -24,6 +24,7 @@ class AddresserController < ApplicationController
 		result_ids = QueryResult.where('query_id = ?', "#{@query.id}")
 		for i in 0...output.count
 			output[i]['id'] = result_ids[i].id
+			output[i]['query_id'] = @query.id
 		end
 		respond_to do |format|
 			format.json { render :json => output }

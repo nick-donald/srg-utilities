@@ -5,7 +5,8 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 
 	events: {
 		'click #get-map': 'getMap',
-		'click .remove': 'removeElement'
+		'click .remove': 'removeElement',
+		'click #get-excel': 'getExcel'
 	},
 
 	triggers: {
@@ -24,6 +25,23 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 
 	getMap: function() {
 		
+	},
+
+	getExcel: function() {
+		var data = {query_id: this.collection.at(0).get("query_id")};
+		$.ajax({
+			url: '/query/getexcel',
+			type: 'GET',
+			data: data,
+			success: this.downloadExcel
+		});
+	},
+
+	downloadExcel: function(data) {
+		var query_id = data.query_id;
+		console.log(query_id);
+		var view = new SrgUtilities.Views.Queries.Download({query_id: query_id});
+		$('body').append(view.render().el);
 	},
 
 	removeElement: function(e) {
