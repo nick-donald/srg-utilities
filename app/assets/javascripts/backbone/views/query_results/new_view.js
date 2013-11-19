@@ -1,6 +1,6 @@
-SrgUtilities.Views.QueryResults = SrgUtilities.Views.QueryResults || {};
+SrgUtilities.Views.Queries = SrgUtilities.Views.Queries || {};
 
-SrgUtilities.Views.QueryResults.QueryNew = Backbone.View.extend({
+SrgUtilities.Views.Queries.QueryNew = Backbone.View.extend({
   template: JST['backbone/templates/query_results/new'],
 
   events: {
@@ -10,7 +10,7 @@ SrgUtilities.Views.QueryResults.QueryNew = Backbone.View.extend({
   submitQuery: function(e) {
   	e.preventDefault();
   	
-  	this.collection = new SrgUtilities.Collections.QueryResults();
+  	this.collection = new SrgUtilities.Collections.Queries();
   	var data = {
   		retailers: $('#stores').val(),
   		city: $('#city').val(),
@@ -18,7 +18,7 @@ SrgUtilities.Views.QueryResults.QueryNew = Backbone.View.extend({
   	};
 
 	  this.collection.fetch({ data: data });
-  	var view = new SrgUtilities.Views.QueryResults.ResultsTable({ collection: this.collection });
+  	var view = new SrgUtilities.Views.Queries.ResultsTable({ collection: this.collection });
   	$('#target').html(view.render().el);
     Backbone.history.navigate("/query-results");
     $('h1').text('Query Results');
@@ -28,5 +28,4 @@ SrgUtilities.Views.QueryResults.QueryNew = Backbone.View.extend({
     this.$el.html(this.template());
     return this;
   }
-
 });

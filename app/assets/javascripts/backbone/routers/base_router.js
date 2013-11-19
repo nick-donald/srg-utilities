@@ -4,16 +4,10 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		'login': 'login',
 		'users': 'usersIndex',
 		'backbonetest': 'backbonetest',
-
-		// Module specific routing
-		'query/*subroute': 'invokeQueriesModule'
+		'query/new': 'newQuery'
 	},
 
 	initialize: function() {
-		Backbone.View.goTo = function(path) {
-	      // srgRouter.navigate(path, true);
-	      alert("bob");
-	    };
 	},
 
 	home: function() {
@@ -21,17 +15,18 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		$('body').html(view.render().el);
 	},
 
-	invokeQueriesModule: function(subroute) {
-		
-	},
-
 	login: function() {
 		var view = new SrgUtilities.Views.BaseViews.LoginView();
 		$('body').html(view.render().el);
 	},
 
-	backbonetest: function () {
-		console.log('backbonetest');
+	backbonetest: function() {
+		console.log('back');
+	},
+
+	newQuery: function() {
+		var view = new SrgUtilities.Views.Queries.QueryNew();
+		$('body').html(view.render().el);
 	}
 
 });

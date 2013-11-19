@@ -1,6 +1,7 @@
 class QueryResultsController < ApplicationController
 
     def destroy
-        puts params
+        QueryResult.delete(params[:id])
+        render nothing: true
     end
 end

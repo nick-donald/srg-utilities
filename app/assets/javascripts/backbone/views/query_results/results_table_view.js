@@ -1,6 +1,6 @@
-SrgUtilities.Views.QueryResults = SrgUtilities.Views.QueryResults || {};
+SrgUtilities.Views.Queries = SrgUtilities.Views.Queries || {};
 
-SrgUtilities.Views.QueryResults.ResultsTable = Backbone.View.extend({
+SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 	template: JST['backbone/templates/query_results/results_table'],
 
 	events: {
@@ -19,7 +19,6 @@ SrgUtilities.Views.QueryResults.ResultsTable = Backbone.View.extend({
 
 	render: function() {
 		this.$el.html(this.template({ results: this.collection }));
-		console.log(this.collection.models);
 		return this;
 	},
 
@@ -30,8 +29,11 @@ SrgUtilities.Views.QueryResults.ResultsTable = Backbone.View.extend({
 	removeElement: function(e) {
 		e.preventDefault();
 		var num = $(e.target).attr('data-entry');
+		Backbone.sync("delete", this.collection.at(num), {
+			complete: function() {}
+		});
 		this.collection.remove(this.collection.at(num));
-		this.collection.save();
+		
 		console.log('Num: ' + num);
 		console.log(this.collection);
 	}

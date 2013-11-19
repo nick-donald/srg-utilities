@@ -31,7 +31,7 @@ SrgUtilities::Application.routes.draw do
 
   get '/test' => 'addresser#test', defaults: { format: 'json' }
 
-  delete '/addresser' => 'query_results#destroy'
+  delete '/addresser/:id' => 'query_results#destroy'
 
   post 'login' => 'sessions#create'
 
