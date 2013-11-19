@@ -22,9 +22,11 @@ SrgUtilities.Views.BaseViews.LoginView = Backbone.View.extend({
 	},
 
 	triggerLogin: function(obj) {
-		var current_session = SrgUtilities.session;
 		SrgUtilities.session.trigger('login');
 		// previous view is passed to "goTo" so that it can be unbound, not currently working correctly
+		SrgUtilities.session.on('sync', function() {
+			alert("synced");
+		});
 		SrgUtilities.session.authenticated() ? SrgUtilities.Views.goTo("", obj) : this.flash();
 	},
 

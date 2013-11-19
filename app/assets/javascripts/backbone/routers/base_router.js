@@ -3,6 +3,7 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		'': 'home',
 		'login': 'login',
 		'users': 'usersIndex',
+		'backbonetest': 'backbonetest',
 
 		// Module specific routing
 		'query/*subroute': 'invokeQueriesModule'
@@ -16,18 +17,21 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 	},
 
 	home: function() {
-		alert("home");
 		var view = new SrgUtilities.Views.BaseViews.HomeView();
 		$('body').html(view.render().el);
 	},
 
 	invokeQueriesModule: function(subroute) {
-
+		
 	},
 
 	login: function() {
 		var view = new SrgUtilities.Views.BaseViews.LoginView();
 		$('body').html(view.render().el);
+	},
+
+	backbonetest: function () {
+		console.log('backbonetest');
 	}
 
 });

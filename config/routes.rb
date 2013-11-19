@@ -35,6 +35,8 @@ SrgUtilities::Application.routes.draw do
 
   post 'login' => 'sessions#create'
 
+  get '/authenticate' => 'sessions#authenticate', defaults: { format: 'json' }
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

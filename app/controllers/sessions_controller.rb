@@ -19,6 +19,17 @@ class SessionsController < ApplicationController
         render nothing: true
     end
 
+    def authenticate
+        if params.has_key?(:remember_token)
+            User.find_by_remember_token(params[:remember_token]) ? response = true : response = false
+        else
+            response = false
+        end
+        respond_to do |format|
+            format.json { render json: {authenticated: response} }
+        end
+    end
+
     private
         def user_params
             params.require(:users).permit(:email, :password_digest)
