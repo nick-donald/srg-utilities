@@ -4,6 +4,7 @@ SrgUtilities.Models.Sessions = Backbone.Model.extend({
 	},
 
 	initialize: function() {
+		this.on('login', this.load);
 		this.load();
 	},
 
@@ -12,6 +13,6 @@ SrgUtilities.Models.Sessions = Backbone.Model.extend({
 	},
 
 	authenticated: function() {
-		return this.get("remember_token") !== undefined
+		return this.get("rememberToken") !== undefined
 	}
 });

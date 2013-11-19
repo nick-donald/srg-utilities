@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SessionsController do
     before { @user = User.find_by_email('bob@example.com') }
 
-    describe 'signin' do
+    describe 'login' do
         context 'with correct password' do
             context 'with remember me checked' do
                 it 'should assign permanent remember cookie' do

@@ -8,11 +8,15 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		'query/*subroute': 'invokeQueriesModule'
 	},
 
-	initilaize: function() {
-
+	initialize: function() {
+		Backbone.View.goTo = function(path) {
+	      // srgRouter.navigate(path, true);
+	      alert("bob");
+	    };
 	},
 
 	home: function() {
+		alert("home");
 		var view = new SrgUtilities.Views.BaseViews.HomeView();
 		$('body').html(view.render().el);
 	},

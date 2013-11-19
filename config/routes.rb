@@ -33,7 +33,7 @@ SrgUtilities::Application.routes.draw do
 
   delete '/addresser' => 'query_results#destroy'
 
-  get 'signin' => 'sessions_controller#create'
+  post 'login' => 'sessions#create'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
