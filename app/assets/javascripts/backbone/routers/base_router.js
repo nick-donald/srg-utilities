@@ -4,7 +4,8 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		'login': 'login',
 		'users': 'usersIndex',
 		'backbonetest': 'backbonetest',
-		'query/new': 'newQuery'
+		'query/new': 'newQuery',
+		'query/previous': 'previousQuery'
 	},
 
 	initialize: function() {
@@ -12,12 +13,12 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 
 	home: function() {
 		var view = new SrgUtilities.Views.BaseViews.HomeView();
-		$('body').html(view.render().el);
+		$('#app-target').html(view.render().el);
 	},
 
 	login: function() {
 		var view = new SrgUtilities.Views.BaseViews.LoginView();
-		$('body').html(view.render().el);
+		$('#app-target').html(view.render().el);
 	},
 
 	backbonetest: function() {
@@ -26,7 +27,12 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 
 	newQuery: function() {
 		var view = new SrgUtilities.Views.Queries.QueryNew();
-		$('body').html(view.render().el);
+		$('#app-target').html(view.render().el);
+	},
+
+	previousQuery: function() {
+		var view = new SrgUtilities.Views.Queries.PrevQuery();
+		$('#app-target').html(view.render().el);	
 	}
 
 });
