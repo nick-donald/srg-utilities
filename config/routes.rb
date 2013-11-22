@@ -41,6 +41,10 @@ SrgUtilities::Application.routes.draw do
 
   get '/query/downloadexcel' => 'query_results#download_excel'
 
+  get '/query/index' => 'query_results#index', defaults: { format: 'json' }
+
+  get '/query/index/detail/find' => 'query_results#index_detail', defaults: { format: 'json' }
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

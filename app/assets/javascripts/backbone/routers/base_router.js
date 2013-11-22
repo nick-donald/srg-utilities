@@ -5,7 +5,7 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		'users': 'usersIndex',
 		'backbonetest': 'backbonetest',
 		'query/new': 'newQuery',
-		'query/previous': 'previousQuery'
+		'query/all': 'indexQuery'
 	},
 
 	initialize: function() {
@@ -30,8 +30,8 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 		$('#app-target').html(view.render().el);
 	},
 
-	previousQuery: function() {
-		var view = new SrgUtilities.Views.Queries.PrevQuery();
+	indexQuery: function() {
+		var view = new SrgUtilities.Views.Queries.QueryIndex();
 		$('#app-target').html(view.render().el);	
 	}
 

@@ -3,14 +3,17 @@
 <table id="results-table" border="1" style="border-collapse:collapse; float:left;">
 	<thead style="border-bottom:solid 3px;">
 		<tr>
-			<th>Name</th>
-			<th>Chain</th>
-			<th>Address</th>
+			<th>Query ID</th>
+			<th>Query</th>
+			<th>City</th>
+			<th>Radius</th>
+			<th>Created At</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% for (i = 0; i < results.models.length; i++) { %>
-		<tr><td><%= results.models[i].get('name') %></td><td><td><%= results.models[i].get('number') %></td></tr>
+		<tr><td><%= results.models[i].get('id') %></td><td><%= results.models[i].get('query') %></td><td><%= results.models[i].get('center') %></td><td><%= results.models[i].get('radius') %></td><td><%= results.models[i].get('created_at').split('T').shift() %></td><td><a class="query-detail" data-id="<%= results.models[i].get('id') %>" href="/query/all/detail">Details</a></td></tr>
 		<% } %>
 	</tbody>
 </table>
