@@ -1,5 +1,5 @@
 <%= JST['backbone/templates/app/header']() %>
-<h2 class="title">Please Log In</h2>
 <% if (!SrgUtilities.session.authenticated()) { %>
+	<h2 class="title">Please Log In</h2>
 	<span><a href="/login" class="btn">login</a></span>
 <% } %>

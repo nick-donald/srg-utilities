@@ -1,0 +1,18 @@
+<% if (results.length) { %>
+
+<table id="results-table" border="1" style="border-collapse:collapse; float:left;">
+	<thead style="border-bottom:solid 3px;">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Address</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for (i = 0; i < results.models.length; i ++) { %>
+			<tr><td><%= results.models[i].get('query_id') %></td><td><%= results.models[i].get('name') %></td><td><%= results.models[i].get('address') %></td><td><a href="#" class="remove" data-entry="<%= i %>">Remove</a></td></tr>
+		<% } %>
+	</tbody>
+</table>
+
+<% } %>

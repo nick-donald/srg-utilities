@@ -19,6 +19,7 @@ SrgUtilities.Views.Queries.QueryIndex = Backbone.View.extend({
   },
 
   showDetail: function(e) {
+    // To do: DRY this up by using the results table view class instead of creating a new class
     e.preventDefault();
     var view = new SrgUtilities.Views.Queries.QueryIndexDetail({id: $(e.target).attr('data-id')});
     $('#app-target').html(view.render().el);
