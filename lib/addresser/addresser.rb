@@ -59,6 +59,7 @@ module Addresser
 				if result["types"].include? "store"
 					if !results_uniq[vicinity]
 						results_uniq[vicinity] = 1
+						result['name'].gsub!(/'/,"&rsquo;")
 						result['store_name'] = q
 						results_push << result
 					end

@@ -2,10 +2,6 @@ class AddresserController < ApplicationController
 	include Addresser
 	skip_before_filter :verify_authenticity_token, only: :get_map
 
-	def new
-		@stuff = params[:stuff]
-	end
-
 	def exec
 		@query = Query.create do |q|
 			q.query = params[:retailers]
@@ -25,6 +21,7 @@ class AddresserController < ApplicationController
 		for i in 0...output.count
 			output[i]['id'] = result_ids[i].id
 			output[i]['query_id'] = @query.id
+			output[i]['city'] = @query.center
 		end
 		respond_to do |format|
 			format.json { render :json => output }

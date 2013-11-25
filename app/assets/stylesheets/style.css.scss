@@ -76,7 +76,7 @@ body {
 }
 
 #app-target {
-	overflow: auto;
+	// overflow: auto;
 	width: 100%;
 	margin: 0 auto;
 	// border: solid thin;
@@ -86,7 +86,12 @@ body {
 }
 
 #app-target div {
-	margin-top: 80px;
+	// margin-top: 80px;
+}
+
+#map-canvas {
+	height: 600px;
+	clear: both;
 }
 
 #login-page {

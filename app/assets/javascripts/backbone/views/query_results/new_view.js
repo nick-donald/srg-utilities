@@ -1,5 +1,8 @@
 SrgUtilities.Views.Queries = SrgUtilities.Views.Queries || {};
 
+// TO DO: add check boxes to enable capturing of different Google provided results,
+// i.e. types, photos, rating, hours, reviews
+
 SrgUtilities.Views.Queries.QueryNew = Backbone.View.extend({
   template: JST['backbone/templates/query_results/new'],
 

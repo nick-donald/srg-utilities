@@ -15,7 +15,7 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 
 	initialize: function() {
 		this.collection.on('reset', this.render, this);
-		this.collection.on('remove', this.render, this);
+		this.collection.on('remove',this.render , this);
 	},
 
 	render: function() {
@@ -24,7 +24,79 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 	},
 
 	getMap: function() {
-		
+		// var city = this.collection.models[0].get('city');
+		// var _this = this;
+		// $.ajax({
+		// 	url: 'http://maps.googleapis.com/maps/api/geocode/json?address=' + city.replace(/\s/g, '+') + '&sensor=false',
+		// 	type: 'GET',
+		// 	success: function(data) {
+		// 		_this.renderGoogleMap(data, _this);
+		// 	}
+		// });
+		this.mapView = new SrgUtilities.Views.Queries.ResultsMap({collection: this.collection});
+		$('#target').append(this.mapView.render().el);
+
+		// console.log(this.collection);
+
+	},
+
+	renderGoogleMap: function(data, _this) {
+		var marker, mapParams = {
+			zoom: 8,
+			center: data.results[0].geometry.location,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		_this.map = new google.maps.Map(document.getElementById('map-canvas'), mapParams);
+
+		this.addMapMarkers(_this);
+		// var icon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
+
+		// var infoWindow = new google.maps.InfoWindow();
+		// // var colors = ["red", "blue", "green", "orange", "pink", "yellow", "purple"];
+
+		// for (var i = 0; i < _this.collection.models.length; i++) {
+		// 	marker = new google.maps.Marker({
+		// 		position: new google.maps.LatLng(_this.collection.models[i].attributes.geometry.location.lat, 
+		// 			_this.collection.models[i].attributes.geometry.location.lng),
+		// 		map: map,
+		// 		icon: icon
+		// 	});
+		// 	google.maps.event.addListener(marker, 'click', function(marker, j) {
+		// 		var windowStr = _this.collection.models[j].get('name') + '<br>' 
+		// 		+ _this.collection.models[j].get('vicinity');
+		// 		return (function() {
+		// 			infoWindow.setContent(windowStr);
+		// 			infoWindow.open(map, marker);
+		// 		});
+		// 	}(marker, i));
+		// 	// this.collection.models[i]
+		// };
+	},
+
+	addMapMarkers: function(_this) {
+		var icon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
+
+		var infoWindow = new google.maps.InfoWindow();
+		// var colors = ["red", "blue", "green", "orange", "pink", "yellow", "purple"];
+
+		for (var i = 0; i < _this.collection.models.length; i++) {
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(_this.collection.models[i].attributes.geometry.location.lat, 
+					_this.collection.models[i].attributes.geometry.location.lng),
+				map: _this.map,
+				icon: icon
+			});
+			google.maps.event.addListener(marker, 'click', function(marker, j) {
+				var windowStr = _this.collection.models[j].get('name') + '<br>' 
+				+ _this.collection.models[j].get('vicinity');
+				return (function() {
+					infoWindow.setContent(windowStr);
+					infoWindow.open(_this.map, marker);
+				});
+			}(marker, i));
+			// this.collection.models[i]
+		};
 	},
 
 	getExcel: function() {
@@ -51,9 +123,10 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 			complete: function() {}
 		});
 		this.collection.remove(this.collection.at(num));
-		
-		console.log('Num: ' + num);
-		console.log(this.collection);
+
+		if (this.mapView) {
+			this.mapView.removeMarker(num);
+		}
 	}
 
 });
