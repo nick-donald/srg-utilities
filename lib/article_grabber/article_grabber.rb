@@ -26,10 +26,11 @@ module ArticleGrabber
     end
 
     dates.each_with_index do |date, index|
-        if DateTime.rfc2822(date) > DateTime.new(now.year,now.month,(now.day - 1),00,00,00,"GMT")
-            message += descriptions[index]
+        if DateTime.rfc2822(date) < DateTime.new(now.year,now.month,(now.day - 1),00,00,00,"GMT")
+            descriptions.delete_at(index)
         end
     end
+    descriptions
   end
 
 end

@@ -6,7 +6,8 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 	events: {
 		'click #get-map': 'getMap',
 		'click .remove': 'removeElement',
-		'click #get-excel': 'getExcel'
+		'click #get-excel': 'getExcel',
+		'click #get-static-map': 'getStaticMap'
 	},
 
 	triggers: {
@@ -33,6 +34,7 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 		// 		_this.renderGoogleMap(data, _this);
 		// 	}
 		// });
+		$('#get-static-map').prop('disabled', '');
 		this.mapView = new SrgUtilities.Views.Queries.ResultsMap({collection: this.collection});
 		$('#target').append(this.mapView.render().el);
 
@@ -127,6 +129,19 @@ SrgUtilities.Views.Queries.ResultsTable = Backbone.View.extend({
 		if (this.mapView) {
 			this.mapView.removeMarker(num);
 		}
+	},
+
+	getStaticMap: function(e) {
+		e.preventDefault();
+		var mapStr = 'http://maps.googleapis.com/maps/api/staticmap?size=800x600&zoom=';
+		console.log(this.collection);
+		var queryStr = this.collection.queryify('vicinity', true, 'store_name');
+		console.log(queryStr);
+		var attributes = this.mapView.getAttributes();
+		console.log(attributes);
+		mapStr += attributes.zoom + '&center=' + attributes.center.ob + ',' + 
+		attributes.center.pb + queryStr + '&sensor=false';
+		console.log(mapStr);
 	}
 
 });

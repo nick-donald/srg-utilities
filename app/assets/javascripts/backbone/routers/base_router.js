@@ -13,7 +13,7 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 
 	home: function() {
 		var view = new SrgUtilities.Views.BaseViews.HomeView();
-		$('#app-target').html(view.render().el);
+		$('body').append(view.render().el);
 	},
 
 	login: function() {

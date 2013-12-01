@@ -1,7 +1,7 @@
 SrgUtilities.Views.BaseViews = SrgUtilities.Views.BaseViews || {};
 
 SrgUtilities.Views.BaseViews.HomeView = Backbone.View.extend({
-	id: 'login-page',
+	id: 'app-container',
 	template: JST['backbone/templates/base_views/home'],
 
 	events: {

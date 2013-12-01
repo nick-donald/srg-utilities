@@ -1,0 +1,11 @@
+<% if (SrgUtilities.session.authenticated()) { %>
+<div id="sidebar">
+	<ul>
+		<li><a href="/query/new">New Query</a></li>
+		<li><a href="/query/all">Previous Queries</a></li>
+		<li>Item 3</li>
+	</ul>
+</div>
+<% } %>
+
+<%= console.log("header auth: " + SrgUtilities.session.authenticated()) %>

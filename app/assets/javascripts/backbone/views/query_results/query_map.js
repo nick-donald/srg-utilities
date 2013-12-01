@@ -1,7 +1,7 @@
 SrgUtilities.Views.Queries = SrgUtilities.Views.Queries || {};
 
 SrgUtilities.Views.Queries.ResultsMap = Backbone.View.extend({
-	id: 'map-canvas',
+	id: 'map-container',
 	template: JST['backbone/templates/query_results/query_map'],
 
 	events: {
@@ -23,7 +23,7 @@ SrgUtilities.Views.Queries.ResultsMap = Backbone.View.extend({
 				_this.renderGoogleMap(data, _this);
 			}
 		});
-		this.collection.on('remove',this.addMapMarkers, this);
+		// this.collection.on('remove',this.addMapMarkers, this);
 	},
 
 	renderGoogleMap: function(data) {
@@ -69,6 +69,14 @@ SrgUtilities.Views.Queries.ResultsMap = Backbone.View.extend({
 		console.log(this.mapMarkers.length);
 		console.log(this.mapMarkers[num]);
 		this.mapMarkers[num].setMap(null);
+		this.mapMarkers.splice(num, 1);
+		if (this.mapMarkers.length < 1) {
+			$('#map-canvas').remove();
+		}
+	},
+
+	getAttributes: function() {
+		return {zoom: this.map.getZoom(), center: this.map.getCenter()};
 	},
 
 	render: function() {

@@ -64,6 +64,11 @@ table {
 	position: relative;
 }
 
+#header-buffer {
+	width: 1100px;
+	margin: 0 auto;
+}
+
 #app-container {
 	width: 100%;
 	background-color: white;
@@ -101,7 +106,8 @@ body {
 }
 
 .title {
-	font-size: 4em;
+	font-size: 3em;
+	line-height: 60px;
 }
 
 h2.title {
@@ -131,4 +137,9 @@ h2.title {
 
 h1.title {
 	color: white;
+}
+
+#sidebar {
+	height: 100%;
+	width: 400px;
 }
