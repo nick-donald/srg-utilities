@@ -9,6 +9,8 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 	},
 
 	initialize: function() {
+		// TODO: Add before and after functions to enable loading
+		// image and transitions
 	},
 
 	home: function() {
@@ -26,13 +28,18 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 	},
 
 	newQuery: function() {
+		this.minimizeSidebar();
 		var view = new SrgUtilities.Views.Queries.QueryNew();
-		$('#app-target').html(view.render().el);
+		$('#load-target').html(view.render().el);
 	},
 
 	indexQuery: function() {
 		var view = new SrgUtilities.Views.Queries.QueryIndex();
-		$('#app-target').html(view.render().el);	
+		$('#load-target').html(view.render().el);	
+	},
+
+	minimizeSidebar: function() {
+		$('#sidebar').addClass('sidebar-minimized');
 	}
 
 });

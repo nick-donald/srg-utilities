@@ -1,10 +1,12 @@
 <% if (SrgUtilities.session.authenticated()) { %>
 <div id="sidebar">
-	<ul>
-		<li><a href="/query/new">New Query</a></li>
-		<li><a href="/query/all">Previous Queries</a></li>
-		<li>Item 3</li>
-	</ul>
+	<div id="sidebar-container">
+		<ul id="sidebar-buttons">
+			<li class="sidebar-button"><a href="/query/new">New Query</a></li>
+			<li class="sidebar-button"><a href="/query/all">Previous Queries</a></li>
+			<li class="sidebar-button"><a href="#">Item 3</a></li>
+		</ul>
+	</div>
 </div>
 <% } %>
 
