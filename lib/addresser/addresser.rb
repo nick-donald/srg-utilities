@@ -34,10 +34,9 @@ module Addresser
 		results_push = Array.new
 		query_formatted.each do |q|
 
-			# UrlEncode city and get JSON from Google, thanks Google.
-			# Probably should be refactored using just Net::HTTP (open-uri is bad I hear?)
+			# UrlEncode city and get JSON from Google.
 			q.gsub!(/\s/, "%20")
-			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=#{ApiKeys.google_places_key}"
+			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=#{ENV['GOOGLE_API_KEY']}"
 			obj = open(uri).read
 			object = JSON.parse(obj)
 			results = object["results"]

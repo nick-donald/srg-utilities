@@ -10,7 +10,8 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 
 	initialize: function() {
 		// TODO: Add before and after functions to enable loading
-		// image and transitions
+		//       image and transitions
+		console.log('baserouter');
 	},
 
 	home: function() {
@@ -20,7 +21,7 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 
 	login: function() {
 		var view = new SrgUtilities.Views.BaseViews.LoginView();
-		$('#app-target').html(view.render().el);
+		$('#load-target').html(view.render().el);
 	},
 
 	backbonetest: function() {
