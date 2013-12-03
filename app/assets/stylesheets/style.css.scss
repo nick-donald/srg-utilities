@@ -180,3 +180,58 @@ h1.title {
 	color: white;
 	text-decoration: none;
 }
+
+#login-container {
+	width: 400px;
+	margin: 0 auto;
+	margin-top: 50px;
+	border: solid thin;
+	padding: 40px 0;
+	text-align: center;
+}
+
+#login-container h1 {
+	font-size: 1.5em;
+}
+
+#login-form {
+	text-align: center;
+}
+
+#login-form label, #login-form input {
+	display: block;
+	margin: 0 auto;
+}
+
+#login-form label {
+	font-size: 1.5em;
+}
+
+#login-form input {
+	font-size: 1.2em;
+	outline: none;
+	border: none;
+	border-bottom: solid;
+	-webkit-transition: all 0.2s;
+
+	&:hover {
+		background-color: rgba(52,152,219, 0.5)
+	}
+}
+
+
+
+input#email {
+	margin-bottom: 20px;
+}
+
+button#login {
+	margin-top: 5px;
+	width: 195px;
+	border: none;
+	outline: none;
+	background-color: rgb(52,152,219);
+	color: white;
+	@include main-font;
+	font-size: 1.4em;
+}

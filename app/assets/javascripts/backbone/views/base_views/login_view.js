@@ -1,6 +1,7 @@
 SrgUtilities.Views.BaseViews = SrgUtilities.Views.BaseViews || {};
 
 SrgUtilities.Views.BaseViews.LoginView = Backbone.View.extend({
+	id: "login-container",
 	template: JST['backbone/templates/base_views/login'],
 
 	events: {
