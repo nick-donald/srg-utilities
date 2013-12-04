@@ -4,10 +4,11 @@ SrgUtilities.Views.Queries = SrgUtilities.Views.Queries || {};
 // i.e. types, photos, rating, hours, reviews
 
 SrgUtilities.Views.Queries.QueryNew = Backbone.View.extend({
+  id: 'new-query',
   template: JST['backbone/templates/query_results/new'],
 
   events: {
-  	'submit #new-query': 'submitQuery'
+  	'submit #form-new-query': 'submitQuery'
   },
 
   submitQuery: function(e) {

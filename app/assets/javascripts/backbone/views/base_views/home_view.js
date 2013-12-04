@@ -20,6 +20,6 @@ SrgUtilities.Views.BaseViews.HomeView = Backbone.View.extend({
 	nav: function(e) {
 		e.preventDefault();
 
-		SrgUtilities.Views.goTo($(e.target).attr('href'));
+		this.goTo($(e.target).attr('href'));
 	}
 });

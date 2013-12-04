@@ -37,6 +37,7 @@ module Addresser
 			# UrlEncode city and get JSON from Google.
 			q.gsub!(/\s/, "%20")
 			uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{s.first.latitude},#{s.first.longitude}&radius=#{radius}&name=#{q}&sensor=false&key=#{ENV['GOOGLE_API_KEY']}"
+			puts uri
 			obj = open(uri).read
 			object = JSON.parse(obj)
 			results = object["results"]

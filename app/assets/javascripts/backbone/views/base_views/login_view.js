@@ -9,6 +9,9 @@ SrgUtilities.Views.BaseViews.LoginView = Backbone.View.extend({
 		'closeview': 'close'
 	},
 
+	initialize: function() {
+	},
+
 	login: function(e) {
 		e.preventDefault();
 
@@ -28,7 +31,7 @@ SrgUtilities.Views.BaseViews.LoginView = Backbone.View.extend({
 		SrgUtilities.session.on('sync', function() {
 			alert("synced");
 		});
-		SrgUtilities.session.authenticated() ? SrgUtilities.Views.goTo("", obj) : this.flash();
+		SrgUtilities.session.authenticated() ? this.goTo("", obj) : this.flash();
 	},
 
 	render: function() {

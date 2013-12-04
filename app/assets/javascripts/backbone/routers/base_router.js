@@ -11,15 +11,22 @@ SrgUtilities.Routers.BaseRouter = Backbone.Router.extend({
 	initialize: function() {
 		// TODO: Add before and after functions to enable loading
 		//       image and transitions
-		console.log('baserouter');
+		
 	},
 
 	home: function() {
+		// TODO: refactor home with a sidebar partial view and so that home has all options displayed
+		//       instead of 'new query page'
 		var view = new SrgUtilities.Views.BaseViews.HomeView();
+		$('#app-container').remove();
 		$('body').append(view.render().el);
 	},
 
 	login: function() {
+		// TODO: After above TODO is complete, I can get rid of this conditional
+		if (!$('#load-target').length) {
+			$('body').append('<div id="app-container"><div id="load-target"></div></div>');
+		}
 		var view = new SrgUtilities.Views.BaseViews.LoginView();
 		$('#load-target').html(view.render().el);
 	},

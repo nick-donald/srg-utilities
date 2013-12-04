@@ -13,14 +13,10 @@ window.SrgUtilities = {
       Backbone.history.start();
       console.log("from start: " + SrgUtilities.session.authenticated());
       console.log(appRouter);
-      SrgUtilities.Views.goTo = function(path, view) {
+
+      Backbone.View.prototype.goTo = function(path) {
         appRouter.navigate(path, {trigger:true});
-        // view.unbind();
-        // view.remove();
-        // delete view.$el;
-        // delete view.el;
-        console.log(view);
-      };
+      }
       if (SrgUtilities.session.authenticated()) {
         appRouter.navigate('', true);
       } else {
