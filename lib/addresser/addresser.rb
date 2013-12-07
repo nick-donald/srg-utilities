@@ -9,7 +9,6 @@ module Addresser
 	require 'spreadsheet'
 	require 'roo'
 	# Api keys module (hidden from public repo)
-	include ApiKeys
 
 	def addresser(query, inputCity, radius)
 
