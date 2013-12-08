@@ -21,12 +21,18 @@ class SessionsController < ApplicationController
 
     def authenticate
         if params.has_key?(:remember_token)
-            User.find_by_remember_token(params[:remember_token]) ? response = true : response = false
+            if user = User.find_by_remember_token(params[:remember_token])
+                response = true
+                admin = user.admin
+            else
+                response = false
+                admin = false
+            end
         else
             response = false
         end
         respond_to do |format|
-            format.json { render json: {authenticated: response} }
+            format.json { render json: {authenticated: response, admin: admin} }
         end
     end
 

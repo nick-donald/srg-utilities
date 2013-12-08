@@ -13,6 +13,8 @@ SrgUtilities.Views.BaseViews.HomeView = Backbone.View.extend({
 	},
 
 	render: function() {
+		var headerView = new SrgUtilities.Views.BaseViews.HeaderView();
+		$('#app-header').html(headerView.render().el);
 		this.$el.html(this.template());
 		return this;
 	},

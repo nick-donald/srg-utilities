@@ -41,6 +41,7 @@ SrgUtilities.Models.Sessions = Backbone.Model.extend({
 				console.log("ajax: " + data.authenticated);
 				if (data.authenticated) {
 					_this.set("rememberToken", get_cookie('remember_token'));
+					_this.set("admin", data.admin);
 				}
 				_this.trigger('sync');
 			}
@@ -83,6 +84,10 @@ SrgUtilities.Models.Sessions = Backbone.Model.extend({
 		// } else {
 		// 	return false;
 		// }
+	},
+
+	admin: function() {
+		return this.get('admin');
 	},
 
 	pageAuth: function () {

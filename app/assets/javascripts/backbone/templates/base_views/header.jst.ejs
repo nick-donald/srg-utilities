@@ -1,0 +1,10 @@
+<h1 class="title">SRG Utilities</h1>
+<ul id="header-buttons">
+	<% if (SrgUtilities.session.authenticated()) { %>
+	<li class="header-button"><a href="#">Queries</a></li>
+	<% if (SrgUtilities.session.admin()) { %>
+	<li class="header-button"><a href="#">Admin</a></li>
+	<% } %>
+	<li class="header-button"><a href="#">Log Out</a></li>
+	<% } %>
+</ul>

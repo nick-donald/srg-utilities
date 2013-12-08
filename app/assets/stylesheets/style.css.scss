@@ -50,12 +50,18 @@ table {
 
 //mixins
 
-@mixin main-font {
+@mixin main-font($size) {
+	font-size: $size;
 	font-family: 'Merriweather Sans', sans-serif;
 }
 
 @mixin quick-transition {
 	-webkit-transition: all 0.3s;
+}
+
+@mixin none-standard-a($color) {
+	color: $color;
+	text-decoration: none;
 }
 
 // SRG Utilities Style
@@ -81,7 +87,7 @@ table {
 }
 
 body {
-	@include main-font;
+	font-family: 'Merriweather Sans', sans-serif;
 }
 
 #app-target {
@@ -226,6 +232,27 @@ button#login {
 	outline: none;
 	background-color: rgb(52,152,219);
 	color: white;
-	@include main-font;
-	font-size: 1.4em;
+	@include main-font(1.4em);
+}
+
+#header-buttons {
+	float: right;
+
+	li {
+		display: inline-block;
+		height: 100%;
+		color: white;
+		line-height: 60px;
+		padding: 0 10px;
+		border-right: solid thin;
+
+		&:first-child {
+			border-left: solid thin;
+		}
+
+		a {
+			@include none-standard-a(white);
+			@include main-font(1.5em);
+		}
+	}
 }
