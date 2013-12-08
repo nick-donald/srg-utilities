@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
         else
             puts "no log"
         end
-        ArticlesMailer.mail_articles.deliver
         render nothing: true
     end
 
