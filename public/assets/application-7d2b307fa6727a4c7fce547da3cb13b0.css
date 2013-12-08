@@ -1,0 +1,190 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ */
+
+/*CSS Reset */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+#app-header {
+  width: 100%;
+  height: 60px;
+  background-color: #2c3e50;
+  z-index: 1000;
+  position: relative; }
+
+#header-buffer {
+  width: 1100px;
+  margin: 0 auto; }
+
+#app-container {
+  width: 100%;
+  background-color: white;
+  overflow: auto;
+  height: 1000px; }
+
+body {
+  font-family: 'Merriweather Sans', sans-serif; }
+
+#app-target {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+  height: 520px; }
+
+#map-canvas {
+  height: 600px;
+  clear: both; }
+
+#login-page {
+  width: 1000px;
+  margin: 20px auto;
+  position: relative; }
+
+.title {
+  font-size: 3em;
+  line-height: 60px;
+  float: left; }
+
+.btn {
+  padding: 15px;
+  border-radius: 4px;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #389df0), color-stop(0.66, #52a6ff));
+  background-image: -o-linear-gradient(bottom, #389df0 0%, #52a6ff 66%);
+  background-image: -moz-linear-gradient(bottom, #389df0 0%, #52a6ff 66%);
+  background-image: -webkit-linear-gradient(bottom, #389df0 0%, #52a6ff 66%);
+  background-image: -ms-linear-gradient(bottom, #389df0 0%, #52a6ff 66%);
+  background-image: linear-gradient(to bottom, #389df0 0%, #52a6ff 66%);
+  color: white;
+  text-decoration: none;
+  float: right;
+  font-size: 2em; }
+
+h1.title {
+  color: white; }
+
+#sidebar {
+  width: 100%;
+  background-color: #e74c3c;
+  margin-top: 0px;
+  -webkit-transition: all 0.3s; }
+
+.sidebar-button:hover {
+  background-color: #2c3e50; }
+
+.sidebar-minimized {
+  margin-top: 0; }
+
+#sidebar-container {
+  width: 100%; }
+
+#sidebar-buttons {
+  text-align: center; }
+
+.sidebar-button {
+  display: inline-block;
+  padding: 20px;
+  font-size: 1.5em;
+  -webkit-transition: all 0.3s; }
+
+.sidebar-button a {
+  color: white;
+  text-decoration: none; }
+
+#login-container {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  border: solid thin;
+  padding: 40px 0;
+  text-align: center; }
+
+#login-container h1 {
+  font-size: 1.5em; }
+
+#login-form {
+  text-align: center; }
+
+#login-form label, #login-form input {
+  display: block;
+  margin: 0 auto; }
+
+#login-form label {
+  font-size: 1.5em; }
+
+#login-form input {
+  font-size: 1.2em;
+  outline: none;
+  border: none;
+  border-bottom: solid;
+  -webkit-transition: all 0.2s; }
+  #login-form input:hover {
+    background-color: rgba(52, 152, 219, 0.5); }
+
+input#email {
+  margin-bottom: 20px; }
+
+button#login {
+  margin-top: 5px;
+  width: 195px;
+  border: none;
+  outline: none;
+  background-color: #3498db;
+  color: white;
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: 1.4em; }
